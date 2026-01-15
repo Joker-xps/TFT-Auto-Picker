@@ -172,27 +172,27 @@ class CardManagementPanel(QWidget):
         area_group = QGroupBox("识别区域配置")
         area_layout = QGridLayout(area_group)
         
-        area_layout.addWidget(QLabel("左边界:"), 0, 0)
+        area_layout.addWidget(QLabel("左上角X:"), 0, 0)
         self.area_left_spin = QSpinBox()
-        self.area_left_spin.setRange(0, 2000)
+        self.area_left_spin.setRange(0, 4000)
         area_layout.addWidget(self.area_left_spin, 0, 1)
         
-        area_layout.addWidget(QLabel("上边界:"), 0, 2)
+        area_layout.addWidget(QLabel("左上角Y:"), 0, 2)
         self.area_top_spin = QSpinBox()
-        self.area_top_spin.setRange(0, 1500)
+        self.area_top_spin.setRange(0, 3000)
         area_layout.addWidget(self.area_top_spin, 0, 3)
         
-        area_layout.addWidget(QLabel("宽度:"), 1, 0)
-        self.area_width_spin = QSpinBox()
-        self.area_width_spin.setRange(50, 500)
-        self.area_width_spin.setValue(150)
-        area_layout.addWidget(self.area_width_spin, 1, 1)
+        area_layout.addWidget(QLabel("右下角X:"), 1, 0)
+        self.area_right_spin = QSpinBox()
+        self.area_right_spin.setRange(0, 4000)
+        self.area_right_spin.setValue(150)
+        area_layout.addWidget(self.area_right_spin, 1, 1)
         
-        area_layout.addWidget(QLabel("高度:"), 1, 2)
-        self.area_height_spin = QSpinBox()
-        self.area_height_spin.setRange(50, 500)
-        self.area_height_spin.setValue(200)
-        area_layout.addWidget(self.area_height_spin, 1, 3)
+        area_layout.addWidget(QLabel("右下角Y:"), 1, 2)
+        self.area_bottom_spin = QSpinBox()
+        self.area_bottom_spin.setRange(0, 3000)
+        self.area_bottom_spin.setValue(200)
+        area_layout.addWidget(self.area_bottom_spin, 1, 3)
         
         area_layout.addWidget(QLabel("置信度阈值:"), 2, 0)
         self.confidence_spin = QSpinBox()
@@ -206,9 +206,6 @@ class CardManagementPanel(QWidget):
         # 操作按钮
         btn_layout = QHBoxLayout()
         btn_layout.addStretch()
-        
-        self.capture_template_btn = QPushButton("截取模板")
-        btn_layout.addWidget(self.capture_template_btn)
         
         self.add_card_btn = QPushButton("添加卡牌")
         btn_layout.addWidget(self.add_card_btn)
@@ -238,7 +235,6 @@ class CardManagementPanel(QWidget):
         
         # 卡牌编辑
         self.browse_btn.clicked.connect(self._browse_template)
-        self.capture_template_btn.clicked.connect(self._capture_template)
         self.add_card_btn.clicked.connect(self._add_card)
         self.update_card_btn.clicked.connect(self._update_card)
         self.delete_card_btn.clicked.connect(self._delete_card)
@@ -318,12 +314,29 @@ class CardManagementPanel(QWidget):
         
         template_path = self.template_path_edit.text().strip()
         
+        # 计算识别区域：左边界、上边界、宽度、高度
+        left = self.area_left_spin.value()
+        top = self.area_top_spin.value()
+        right = self.area_right_spin.value()
+        bottom = self.area_bottom_spin.value()
+        
+        # 确保坐标有效
+        left = min(left, right)
+        top = min(top, bottom)
+        right = max(left, right)
+        bottom = max(top, bottom)
+        
+        width = right - left
+        height = bottom - top
+        
         recognition_area = {
-            'left': self.area_left_spin.value(),
-            'top': self.area_top_spin.value(),
-            'width': self.area_width_spin.value(),
-            'height': self.area_height_spin.value()
+            'left': left,
+            'top': top,
+            'width': width,
+            'height': height
         }
+        
+        confidence_threshold = self.confidence_spin.value() / 100.0  # 转换为0-1范围
         
         success = self.card_config.add_card(
             name=name,
@@ -333,6 +346,10 @@ class CardManagementPanel(QWidget):
             template_path=template_path,
             recognition_area=recognition_area
         )
+        
+        # 更新置信度阈值
+        if success:
+            self.card_config.update_card(name, confidence_threshold=confidence_threshold)
         
         if success:
             QMessageBox.information(self, "成功", f"卡牌 {name} 添加成功")
@@ -368,13 +385,16 @@ class CardManagementPanel(QWidget):
             'height': self.area_height_spin.value()
         }
         
+        confidence_threshold = self.confidence_spin.value() / 100.0  # 转换为0-1范围
+        
         success = self.card_config.update_card(
             name=name,
             cost=cost,
             season=season,
             classes=classes,
             template_path=template_path,
-            recognition_area=recognition_area
+            recognition_area=recognition_area,
+            confidence_threshold=confidence_threshold
         )
         
         if success:
@@ -419,12 +439,24 @@ class CardManagementPanel(QWidget):
         self.classes_edit.setText(",".join(card['classes']))
         self.template_path_edit.setText(card['template_path'])
         
-        # 识别区域
+        # 识别区域 - 转换为左上角和右下角坐标
         area = card['recognition_area']
-        self.area_left_spin.setValue(area['left'])
-        self.area_top_spin.setValue(area['top'])
-        self.area_width_spin.setValue(area['width'])
-        self.area_height_spin.setValue(area['height'])
+        left = area['left']
+        top = area['top']
+        width = area['width']
+        height = area['height']
+        
+        right = left + width
+        bottom = top + height
+        
+        self.area_left_spin.setValue(left)
+        self.area_top_spin.setValue(top)
+        self.area_right_spin.setValue(right)
+        self.area_bottom_spin.setValue(bottom)
+        
+        # 置信度阈值
+        confidence = card.get('confidence_threshold', 0.75)
+        self.confidence_spin.setValue(int(confidence * 100))  # 转换为0-100范围
         
         # 切换到编辑选项卡
         self.tabs.setCurrentIndex(1)
@@ -437,32 +469,13 @@ class CardManagementPanel(QWidget):
         self.classes_edit.clear()
         self.template_path_edit.clear()
         
-        # 识别区域重置为默认值
+        # 识别区域重置为默认值 (0,0) 到 (150,200)
         self.area_left_spin.setValue(0)
         self.area_top_spin.setValue(0)
-        self.area_width_spin.setValue(150)
-        self.area_height_spin.setValue(200)
+        self.area_right_spin.setValue(150)
+        self.area_bottom_spin.setValue(200)
+        
+        # 置信度阈值重置为默认值
+        self.confidence_spin.setValue(75)
     
-    def _capture_template(self) -> None:
-        """使用截图工具捕获卡牌模板"""
-        card_name = self.card_name_edit.text().strip()
-        if not card_name:
-            card_name = "unknown_card"
-            self.card_name_edit.setText(card_name)
-        
-        cost = self.cost_spin.value()
-        season = self.edit_season_combo.currentText()
-        
-        from modules.ui.template_capture_tool import TemplateCaptureTool
-        tool = TemplateCaptureTool(card_name, cost, season, self)
-        tool.template_saved.connect(self._on_template_saved)
-        
-        if tool.exec_() == tool.Accepted:
-            template_path = tool.get_template_path()
-            if template_path:
-                self.template_path_edit.setText(template_path)
-    
-    def _on_template_saved(self, template_path: str, card_name: str) -> None:
-        """模板保存完成回调"""
-        self.template_path_edit.setText(template_path)
-        self.card_updated.emit()
+

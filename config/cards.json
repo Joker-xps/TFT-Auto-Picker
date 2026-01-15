@@ -1,6 +1,6 @@
 {
     "version": "1.0",
-    "update_time": "2026-01-15 16:17:39",
+    "update_time": "2026-01-15 18:10:22",
     "cards": {
         "德莱文": {
             "name": "德莱文",
@@ -32,6 +32,23 @@
                 "left": 0,
                 "top": 0,
                 "width": 150,
+                "height": 200
+            },
+            "confidence_threshold": 0.75
+        },
+        "璐璐": {
+            "name": "璐璐",
+            "cost": 1,
+            "season": "s13",
+            "classes": [
+                "约德尔人",
+                "法师"
+            ],
+            "template_path": "D:/backup/Project/pokemmo/TFT-Auto-Picker/resources/cards/璐璐.bmp",
+            "recognition_area": {
+                "left": 0,
+                "top": 0,
+                "width": 212,
                 "height": 200
             },
             "confidence_threshold": 0.75

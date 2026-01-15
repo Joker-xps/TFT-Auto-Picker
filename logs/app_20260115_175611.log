@@ -1,0 +1,33 @@
+2026-01-15 17:56:11,967 [INFO    ] __main__: 日志系统初始化完成
+2026-01-15 17:56:11,967 [INFO    ] __main__: 日志文件: logs\app_20260115_175611.log
+2026-01-15 17:56:11,968 [INFO    ] __main__: ============================================================
+2026-01-15 17:56:11,968 [INFO    ] __main__: 金铲铲之战自动拿牌工具 v1.0.0
+2026-01-15 17:56:11,968 [INFO    ] __main__: ============================================================
+2026-01-15 17:56:11,968 [INFO    ] __main__: Python版本: 3.10.19 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 16:41:31) [MSC v.1929 64 bit (AMD64)]
+2026-01-15 17:56:11,968 [INFO    ] __main__: 操作系统: win32
+2026-01-15 17:56:12,109 [INFO    ] modules.config.settings: 配置文件加载成功
+2026-01-15 17:56:12,109 [INFO    ] modules.config.settings: 配置管理器初始化完成，配置目录: d:\backup\Project\pokemmo\TFT-Auto-Picker\config
+2026-01-15 17:56:12,110 [INFO    ] modules.image_recognition.screen_capture: 屏幕捕获器初始化完成，分辨率: 2560x1440
+2026-01-15 17:56:12,110 [INFO    ] modules.image_recognition.template_matcher: 模板匹配器初始化完成
+2026-01-15 17:56:12,110 [INFO    ] core.game_state: 游戏状态已初始化
+2026-01-15 17:56:12,112 [INFO    ] modules.config.card_config: 加载了 10 个优先卡牌
+2026-01-15 17:56:12,112 [INFO    ] modules.config.card_config: 加载了 2 个自定义卡组
+2026-01-15 17:56:12,112 [INFO    ] modules.config.card_config: 加载了 2 张卡牌配置
+2026-01-15 17:56:12,112 [INFO    ] modules.config.card_config: 卡牌配置管理器初始化完成
+2026-01-15 17:56:12,112 [INFO    ] modules.image_recognition.card_recognizer: 卡牌识别器初始化完成
+2026-01-15 17:56:12,112 [INFO    ] modules.automation.mouse_controller: 鼠标控制器初始化完成
+2026-01-15 17:56:12,113 [INFO    ] core.strategy: 初始化优先级策略，优先级列表长度: 0
+2026-01-15 17:56:12,113 [INFO    ] core.strategy: 默认策略注册完成
+2026-01-15 17:56:12,113 [INFO    ] modules.automation.game_automator: 游戏自动化器初始化完成
+2026-01-15 17:56:12,113 [INFO    ] modules.automation.game_automator: 选牌回调函数已设置
+2026-01-15 17:56:12,122 [INFO    ] modules.config.card_config: 加载了 10 个优先卡牌
+2026-01-15 17:56:12,124 [INFO    ] modules.config.card_config: 加载了 2 个自定义卡组
+2026-01-15 17:56:12,124 [INFO    ] modules.config.card_config: 加载了 2 张卡牌配置
+2026-01-15 17:56:12,124 [INFO    ] modules.config.card_config: 卡牌配置管理器初始化完成
+2026-01-15 17:56:12,238 [INFO    ] modules.config.card_config: 加载了 10 个优先卡牌
+2026-01-15 17:56:12,238 [INFO    ] modules.config.card_config: 加载了 2 个自定义卡组
+2026-01-15 17:56:12,238 [INFO    ] modules.config.card_config: 加载了 2 张卡牌配置
+2026-01-15 17:56:12,238 [INFO    ] modules.config.card_config: 卡牌配置管理器初始化完成
+2026-01-15 17:56:12,247 [INFO    ] modules.ui.main_window: 主窗口初始化完成
+2026-01-15 17:56:12,325 [INFO    ] __main__: 应用程序启动成功
+2026-01-15 17:56:30,186 [INFO    ] modules.image_recognition.screen_capture: 屏幕捕获器初始化完成，分辨率: 2560x1440
