@@ -1,0 +1,40 @@
+{
+    "version": "1.0",
+    "update_time": "2026-01-15 16:17:39",
+    "cards": {
+        "德莱文": {
+            "name": "德莱文",
+            "cost": 4,
+            "season": "s13",
+            "classes": [
+                "挑战者",
+                "帝国"
+            ],
+            "template_path": "resources/cards/s13/4/draven.png",
+            "recognition_area": {
+                "left": 0,
+                "top": 0,
+                "width": 150,
+                "height": 200
+            },
+            "confidence_threshold": 0.75
+        },
+        "亚索": {
+            "name": "亚索",
+            "cost": 3,
+            "season": "s13",
+            "classes": [
+                "挑战者",
+                "浪人"
+            ],
+            "template_path": "resources/cards/s13/3/yasuo.png",
+            "recognition_area": {
+                "left": 0,
+                "top": 0,
+                "width": 150,
+                "height": 200
+            },
+            "confidence_threshold": 0.75
+        }
+    }
+}

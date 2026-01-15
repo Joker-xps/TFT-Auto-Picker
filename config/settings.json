@@ -1,0 +1,35 @@
+{
+    "general": {
+        "language": "zh-CN",
+        "theme": "dark",
+        "start_with_windows": false,
+        "minimize_to_tray": true
+    },
+    "automation": {
+        "auto_start": false,
+        "detect_interval": 0.3,
+        "pick_cooldown": 0.5,
+        "random_offset": true,
+        "offset_range": 10,
+        "double_click_mode": false
+    },
+    "recognition": {
+        "template_threshold": 0.75,
+        "auto_detect_shop": true,
+        "shop_regions": [],
+        "enable_debug_capture": false
+    },
+    "shortcuts": {
+        "start_stop": "F1",
+        "pause": "F2",
+        "quick_pick": "F3",
+        "refresh": "F5"
+    },
+    "ui": {
+        "window_width": 1000,
+        "window_height": 700,
+        "log_max_lines": 1000,
+        "auto_scroll_log": true,
+        "show_confidence": true
+    }
+}
