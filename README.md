@@ -61,7 +61,7 @@
 ### 步骤1：克隆或下载项目
 
 ```bash
-git clone https://github.com/yourusername/TFT-Auto-Picker.git
+git clone https://github.com/Joker-xps/TFT-Auto-Picker.git
 cd TFT-Auto-Picker
 ```
 
